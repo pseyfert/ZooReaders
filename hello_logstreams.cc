@@ -3,9 +3,9 @@
 #include <string>
 #include <iostream>
 
-int myloglevel = logstreams::logstream::logLevel();
+//int myloglevel = logstreams::logstream::logLevel();
 
-void reset_log() {
+void reset_log(int myloglevel) {
   std::cout << "my log level " << myloglevel << std::endl;
   logstreams::logstream::setLogLevel(myloglevel);
 }

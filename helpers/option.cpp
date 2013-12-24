@@ -42,7 +42,7 @@ option<int>::option(char caller) {
   m_caller = caller;
   m_set = false;
   default_value = std::numeric_limits<int>::max();
-  function = &dummy;
+  function = &dummy<int>;
 }
 
 template <>
@@ -53,7 +53,7 @@ option<bool>::option(char caller) {
   m_set=false;
   *m_value = true;
   default_value = false;
-  function = &dummy;
+  function = &dummy<bool>;
 }
 
 template <>
@@ -63,7 +63,7 @@ option<std::string>::option(char caller) {
   m_set=false;
   *m_value = std::string("");
   default_value = std::string("");
-  function = &dummy;
+  function = &dummy<std::string>;
 }
 
 
@@ -78,7 +78,7 @@ option<T>::option(char caller, T def)   {
   m_caller = caller;
   m_set = false;
   default_value = def;
-  function = &dummy;
+  function = &dummy<T>;
 }
 
 template <class T>
@@ -89,9 +89,18 @@ option<T>::option(char caller, T def, T* value) {
   m_set = false;
   default_value = def;
   *value = def;
-  function = &dummy;
+  function = &dummy<T>;
 }
 
+template <class T>
+option<T>::option(char caller, T def, bool need) {
+  m_needed = need;
+  m_value = &storage;
+  m_caller = caller;
+  m_set = false;
+  default_value = def;
+  function = &dummy<T>;
+}
 template <class T>
 option<T>::option(char caller, T def, T* value, bool need) {
   m_needed = need;
@@ -99,13 +108,33 @@ option<T>::option(char caller, T def, T* value, bool need) {
   m_caller = caller;
   m_set = false;
   default_value = def;
-  function = &dummy;
+  function = &dummy<T>;
 }
 
 template <class T>
-option<T>::option(char caller, T def, T* value, bool need, voidfun fun) {
+option<T>::option(char caller, T def, T* value, bool need, option<T>::myfun fun) {
   m_needed = need;
   m_value = value;
+  m_caller = caller;
+  m_set = false;
+  default_value = def;
+  function = fun;
+}
+
+template <class T>
+option<T>::option(char caller, T def, option<T>::myfun fun) {
+  m_needed = false;
+  m_value = &storage;
+  m_caller = caller;
+  m_set = false;
+  default_value = def;
+  function = fun;
+}
+
+template <class T>
+option<T>::option(char caller, T def, bool need, option<T>::myfun fun) {
+  m_needed = need;
+  m_value = &storage;
   m_caller = caller;
   m_set = false;
   default_value = def;

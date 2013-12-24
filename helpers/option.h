@@ -29,8 +29,8 @@
 #include "logstream.h"
 #include <iostream>
 
-typedef void (*voidfun)();
-void dummy() {
+template <class T>
+void dummy(T) {
 }
 
 class virtualoption {
@@ -53,6 +53,7 @@ class virtualoption {
 
 template <class T>
 class option : public virtualoption {
+  typedef void (*myfun)(T);
   private:
     char m_caller;
     T* m_value;
@@ -61,7 +62,7 @@ class option : public virtualoption {
     bool m_set;
     bool m_needed;
     std::string helpmessage;
-    voidfun function;
+    myfun function;
   public:
     void help() {std::cout << "option -" << callme() << "\t" << helpmessage << std::endl;}
     T value() {if (m_set) return *m_value; else return default_value;} ;
@@ -76,12 +77,15 @@ class option : public virtualoption {
     bool isneeded() {return m_needed;};
     void enter_helpmessage(std::string message) {helpmessage = message;};
     /// call voidfun
-    void apply() {function();}
+    void apply() {function(value());}
     option(char caller);
     option(char caller, T def);
     option(char caller, T def, T* value);
     option(char caller, T def, T* value, bool need);
-    option(char caller, T def, T* value, bool need, voidfun function);
+    option(char caller, T def, T* value, bool need, myfun function);
+    option(char caller, T def, bool need);
+    option(char caller, T def, bool need, myfun function);
+    option(char caller, T def, myfun function);
     ~option();
 };
 
