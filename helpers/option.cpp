@@ -12,8 +12,6 @@ option<T>::option(char caller) {
   m_set = false;
 }
 
-///@todo: merge initialize and help
-
 template <class T>
 void option<T>::initialize() {
   logstreams::debug << "option: ";
