@@ -82,13 +82,13 @@ option<T>::option(char caller, T def)   {
 }
 
 template <class T>
-option<T>::option(char caller, T def, T* value) {
+option<T>::option(char caller, T def, T* reference) {
   m_needed = false;
-  m_value = value;
+  m_value = reference;
   m_caller = caller;
   m_set = false;
   default_value = def;
-  *value = def;
+  *reference = def;
   function = &dummy<T>;
 }
 
@@ -102,9 +102,9 @@ option<T>::option(char caller, T def, bool need) {
   function = &dummy<T>;
 }
 template <class T>
-option<T>::option(char caller, T def, T* value, bool need) {
+option<T>::option(char caller, T def, T* reference, bool need) {
   m_needed = need;
-  m_value = value;
+  m_value = reference;
   m_caller = caller;
   m_set = false;
   default_value = def;
@@ -112,9 +112,9 @@ option<T>::option(char caller, T def, T* value, bool need) {
 }
 
 template <class T>
-option<T>::option(char caller, T def, T* value, bool need, option<T>::myfun fun) {
+option<T>::option(char caller, T def, T* reference, bool need, option<T>::myfun fun) {
   m_needed = need;
-  m_value = value;
+  m_value = reference;
   m_caller = caller;
   m_set = false;
   default_value = def;
@@ -191,36 +191,36 @@ option<T>* options::push_back(option<T>* opt) {
 }
 
 template <>
-void option<bool>::set(char* value) {
-  if (0==strcmp(value,"true"))
+void option<bool>::set(char* boolAsString) {
+  if (0==strcmp(boolAsString,"true"))
     set(true);
-  else if (0==strcmp(value,"false"))
+  else if (0==strcmp(boolAsString,"false"))
     set(false);
   else
     std::cerr << "I don't understand you" << std::endl;
 }
 
 template <>
-void option<int>::set(char* value) {
+void option<int>::set(char* intAsString) {
   //set(int(atoi(value)));
   char* buffer;
-  set(int(strtol(value,&buffer,0)));
+  set(int(strtol(intAsString,&buffer,0)));
 }
 
 template <>
-void option<unsigned>::set(char* value) {
+void option<unsigned>::set(char* intAsString) {
   //set(int(atoi(value)));
   char* buffer;
-  set(unsigned (strtol(value,&buffer,0)));
+  set(unsigned (strtol(intAsString,&buffer,0)));
 }
 template <>
-void option<std::string>::set(char* value) {
-  set(std::string(value));
+void option<std::string>::set(char* toBeSet) {
+  set(std::string(toBeSet));
 }
 
 template <>
-void option<TString>::set(char* value) {
-  set(TString(value));
+void option<TString>::set(char* toBeSet) {
+  set(TString(toBeSet));
 }
 
 template <>
