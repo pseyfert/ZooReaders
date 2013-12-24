@@ -197,7 +197,7 @@ virtualoption* options::get_option(const char caller) {
   /// @todo: this will be so cool with C++11
   std::vector<virtualoption*>::const_iterator iter = vec.begin();
   for ( ; vec.end() != iter ; ++iter ) {
-    if (caller == iter->callme()) {
+    if (caller == (*iter)->callme()) {
       return *iter;
     }
   }
