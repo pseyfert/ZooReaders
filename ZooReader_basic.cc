@@ -18,7 +18,7 @@ int main(int argc, char** argv) {
   }
   chain->GetEntries();
   chain->SetBranchAddress("Event",&pev);
-  int branchstatus = chain->SetBranchAddress(branchname.c_str(),parts);
+  int branchstatus = chain->SetBranchAddress(branchname.c_str(),&parts);
   if (TTree::kMissingBranch == branchstatus || 0u == branchname.length()) {
     std::vector<std::string> branchnames = getBranchNames((TTree*)chain);
     logstreams::error << "desired branch is not available!" << std::endl;
