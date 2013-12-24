@@ -3,5 +3,5 @@ CXXFLAGS = $(shell root-config --cflags) -fPIC
 LDFLAGS = $(shell root-config --libs)
 TARGET: libhelpers.so
 
-libhelpers.so: option.o logstream.o treefunctions.o
+libhelpers.so: option.o logstream.o treefunctions.o glob.o
 	$(LD) -o $@ -shared $^
