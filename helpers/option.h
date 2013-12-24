@@ -27,6 +27,7 @@
 #include <stdlib.h>
 //#include <boost/foreach.hpp>
 #include "logstream.h"
+#include <iostream>
 
 
 class virtualoption {
@@ -94,5 +95,6 @@ class options {
     options() ;
     options(bool needs_overflow) ;
     std::vector<std::string> rest() {return overflow;}
+    virtualoption* get_option(const char caller);
 };
 #endif

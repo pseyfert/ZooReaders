@@ -192,6 +192,18 @@ void option<T>::set() {
   std::cerr << "no argument given for option -" << m_caller << std::endl;
 }
 
+
+virtualoption* options::get_option(const char caller) {
+  /// @todo: this will be so cool with C++11
+  std::vector<virtualoption*>::const_iterator iter = vec.begin();
+  for ( ; vec.end() != iter ; ++iter ) {
+    if (caller == iter->callme()) {
+      return *iter;
+    }
+  }
+  return NULL;
+}
+
 options::options() {
   overflow.clear();
   m_needoverflow=false;
