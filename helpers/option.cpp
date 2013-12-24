@@ -17,7 +17,9 @@ option<T>::option(char caller) {
 template <class T>
 void option<T>::initialize() {
   std::cout << "option: ";
-  return shortinitialize();
+  shortinitialize();
+  apply();
+  return;
 }
 
 template <class T>
@@ -40,6 +42,7 @@ option<int>::option(char caller) {
   m_caller = caller;
   m_set = false;
   default_value = std::numeric_limits<int>::max();
+  function = &dummy;
 }
 
 template <>
@@ -50,6 +53,7 @@ option<bool>::option(char caller) {
   m_set=false;
   *m_value = true;
   default_value = false;
+  function = &dummy;
 }
 
 template <>
@@ -59,6 +63,7 @@ option<std::string>::option(char caller) {
   m_set=false;
   *m_value = std::string("");
   default_value = std::string("");
+  function = &dummy;
 }
 
 
@@ -73,6 +78,7 @@ option<T>::option(char caller, T def)   {
   m_caller = caller;
   m_set = false;
   default_value = def;
+  function = &dummy;
 }
 
 template <class T>
@@ -83,6 +89,7 @@ option<T>::option(char caller, T def, T* value) {
   m_set = false;
   default_value = def;
   *value = def;
+  function = &dummy;
 }
 
 template <class T>
@@ -92,6 +99,17 @@ option<T>::option(char caller, T def, T* value, bool need) {
   m_caller = caller;
   m_set = false;
   default_value = def;
+  function = &dummy;
+}
+
+template <class T>
+option<T>::option(char caller, T def, T* value, bool need, voidfun fun) {
+  m_needed = need;
+  m_value = value;
+  m_caller = caller;
+  m_set = false;
+  default_value = def;
+  function = fun;
 }
 
 template <class T>
@@ -113,6 +131,10 @@ void options::initialize() {
   for (unsigned jj = 0 ; jj < vec.size() ; ++jj) {
     virtualoption* opt = vec[jj];
     opt->shortinitialize();
+  }
+  for (unsigned jj = 0 ; jj < vec.size() ; ++jj) {
+    virtualoption* opt = vec[jj];
+    opt->apply();
   }
   std::cout << "values in square brackets are the default values" << std::endl;
   if (overflow.size()) {

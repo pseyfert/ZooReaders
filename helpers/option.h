@@ -29,6 +29,9 @@
 #include "logstream.h"
 #include <iostream>
 
+typedef void (*voidfun)();
+void dummy() {
+}
 
 class virtualoption {
   public:
@@ -43,6 +46,7 @@ class virtualoption {
     virtual void set(char*) =0;
     virtual void set() =0;
     virtual void help() =0;
+    virtual void apply() =0;
     virtual void enter_helpmessage(std::string) =0;
 };
 
@@ -57,6 +61,7 @@ class option : public virtualoption {
     bool m_set;
     bool m_needed;
     std::string helpmessage;
+    voidfun function;
   public:
     void help() {std::cout << "option -" << callme() << "\t" << helpmessage << std::endl;}
     T value() {if (m_set) return *m_value; else return default_value;} ;
@@ -70,10 +75,13 @@ class option : public virtualoption {
     bool isset() {return m_set;};
     bool isneeded() {return m_needed;};
     void enter_helpmessage(std::string message) {helpmessage = message;};
+    /// call voidfun
+    void apply() {function();}
     option(char caller);
     option(char caller, T def);
     option(char caller, T def, T* value);
     option(char caller, T def, T* value, bool need);
+    option(char caller, T def, T* value, bool need, voidfun function);
     ~option();
 };
 
