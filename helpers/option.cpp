@@ -3,7 +3,6 @@
 #include "logstream.h"
 #include "option.h"
 #include "TString.h"
-#include "ZooFunctors/likely.h"
 
 template <class T>
 option<T>::option(char caller) {
@@ -242,7 +241,7 @@ void options::parse(int argc, char** argv) {
     }
     overflow.push_back(std::string(argv[i]));
   }
-  if(UNLIKELY(m_printhelp))
+  if(m_printhelp)
     help();
   //  if(UNLIKELY(logstreams::logstream::logLevel() <= logstreams::DEBUG))
   //   initialize();
