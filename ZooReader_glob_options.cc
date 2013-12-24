@@ -15,10 +15,6 @@ int main(int argc, char** argv) {
   glob_options.push_back<std::string>(new option<std::string>('b',"b",&branchname))->enter_helpmessage("your decay name");
   glob_options.set_needsOverflow(true);
 
-  //if (argc==1) {
-  //  glob_options.help();
-  //  return 1;
-  //}
   glob_options.parse(argc,argv);
   glob_options.initialize();
 
