@@ -148,6 +148,7 @@ void option<T>::set(T arg) {
 }
 
 void options::help() {
+  std::cout << " for usage, use the following options:" << std::endl;
   for (unsigned jj = 0 ; jj < vec.size() ; ++jj) {
     vec[jj]->help();
   }
