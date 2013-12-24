@@ -16,7 +16,6 @@ int main(int argc, char** argv) {
   glob_options.set_needsOverflow(true);
 
   glob_options.parse(argc,argv);
-  glob_options.initialize();
 
 
   TChain* chain(new TChain("Forest"));

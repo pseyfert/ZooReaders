@@ -101,6 +101,7 @@ class options {
     template<class T>
     option<T>* push_back(option<T>*);
     void help();
+    void show_settings();
     void enter_helpmessage(std::string message) {helpmessage = message;};
     void initialize() ;
     void parse(int argc, char** argv);

@@ -24,7 +24,8 @@ int main(int argc, char** argv) {
   opts.parse(argc,argv);
 
   std::cout << " let's see what got parsed " << std::endl;
-  opts.initialize();
+  logstreams::logstream::setLogLevel(1);
+  opts.show_settings();
 
   /// retrieve option and value via get_option
   std::string t_string = (dynamic_cast<option<std::string>*>(opts.get_option('t')))->value();

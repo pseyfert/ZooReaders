@@ -21,7 +21,6 @@ int main(int argc, char** argv) {
   opts.push_back<int>(&loglevel);
 
   opts.parse(argc,argv);
-  opts.initialize();
 ////logstreams::logstream::setLogLevel(loglevel.value());
 
 

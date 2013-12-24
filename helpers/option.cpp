@@ -16,7 +16,7 @@ option<T>::option(char caller) {
 
 template <class T>
 void option<T>::initialize() {
-  std::cout << "option: ";
+  logstreams::debug << "option: ";
   shortinitialize();
   apply();
   return;
@@ -24,14 +24,14 @@ void option<T>::initialize() {
 
 template <class T>
 void option<T>::shortinitialize() {
-  std::cout << "\t-" << m_caller;
-  std::cout << "\t" << value();
+  logstreams::debug << "\t-" << m_caller;
+  logstreams::debug << "\t" << value();
   if (m_set)
-    std::cout << " [" << default_value << "]";
+    logstreams::debug << " [" << default_value << "]";
   else
-    std::cout << " (default value)";
-  std::cout << "\tstored at " << m_value;
-  std::cout << std::endl;
+    logstreams::debug << " (default value)";
+  logstreams::debug << "\tstored at " << m_value;
+  logstreams::debug << std::endl;
   return;
 }
 
@@ -155,25 +155,27 @@ void options::help() {
   std::cout << "all other arguments " << helpmessage << std::endl;
 }
 
-void options::initialize() {
-  std::cout << "possible options are: " << std::endl;
+void options::show_settings() {
+  logstreams::debug << "possible options are: " << std::endl;
   //BOOST_FOREACH(virtualoption* opt, vec) {
   for (unsigned jj = 0 ; jj < vec.size() ; ++jj) {
     virtualoption* opt = vec[jj];
     opt->shortinitialize();
   }
-  for (unsigned jj = 0 ; jj < vec.size() ; ++jj) {
-    virtualoption* opt = vec[jj];
-    opt->apply();
-  }
-  std::cout << "values in square brackets are the default values" << std::endl;
   if (overflow.size()) {
-    std::cout << "other arguments:" << std::endl;
+    logstreams::debug << "other arguments:" << std::endl;
     //BOOST_FOREACH(std::string arg, overflow) {
     for (unsigned jj = 0 ; jj < overflow.size() ; ++jj) {
       std::string arg = overflow[jj];
       std::cout << arg << std::endl;
     }
+  }
+}
+void options::initialize() {
+  show_settings();
+  for (unsigned jj = 0 ; jj < vec.size() ; ++jj) {
+    virtualoption* opt = vec[jj];
+    opt->apply();
   }
 }
 
@@ -324,6 +326,7 @@ void options::parse(int argc, char** argv) {
       throw 31;
     }
   }
+  initialize();
 }
 
 template class option<bool>;
