@@ -104,6 +104,8 @@ class options {
     void enter_helpmessage(std::string message) {helpmessage = message;};
     void initialize() ;
     void parse(int argc, char** argv);
+    void set_needsOverflow(bool n) {m_needoverflow = n;};
+    bool overflow_needed() {return m_needoverflow;};
     options() ;
     options(bool needs_overflow) ;
     std::vector<std::string> rest() {return overflow;}
