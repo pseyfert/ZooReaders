@@ -31,7 +31,8 @@ through them in the following order.
 
 1. [hello_options.cc] the most readable intro into options I could think of.
 2. [hello_logstreams.cc] just putting some noise to the logstreams. play around
-   with the -v option.
+   with the -v option. Shows how functions can be called when an option gets
+   parsed, both using the value as well as not using it (mind the template).
 3. [hello_logstreams_glob.cc] not to introduce code duplication, most of
    ```hello_logstreams.cc``` is exported to the helpers library. This shows how
    you're supposed to use options.
