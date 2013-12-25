@@ -5,6 +5,11 @@
 
 //int myloglevel = logstreams::logstream::logLevel();
 
+template <class T>
+void noise(T) {
+  logstreams::debug << "MAKE SOME NOISE" << std::endl;
+}
+
 void reset_log(int myloglevel) {
   std::cout << "my log level " << myloglevel << std::endl;
   logstreams::logstream::setLogLevel(myloglevel);
@@ -16,9 +21,12 @@ int main(int argc, char** argv) {
   /// adding additional information what will be done with other arguments
   opts.enter_helpmessage(" are useless");
 
-  option<int> loglevel('v',1,&myloglevel,false,&reset_log); ///_v_erbosity
+  option<int> loglevel('v',1,&reset_log); ///_v_erbosity
+//option<int> loglevel('v',1,&myloglevel,false,&reset_log); ///_v_erbosity
 ////option<int> loglevel('v',logstreams::logstream::logLevel()); ///_v_erbosity
   opts.push_back<int>(&loglevel);
+
+  opts.push_back<char>(new option<char>('n',(char)'b',&(noise<char>)));
 
   opts.parse(argc,argv);
 ////logstreams::logstream::setLogLevel(loglevel.value());
