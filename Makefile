@@ -1,6 +1,7 @@
 LD = gcc
 CXXFLAGS = $(shell root-config --cflags) -fPIC
 LDFLAGS = $(shell root-config --glibs) -lGenVector -Lhelpers -lhelpers -LZoo -lZooROOT -LZooFunctors -lZooFunctorROOT
+SUBDIRS = Zoo ZooFunctors helpers
 ###TARGET: todo
 
 include Rules.mk

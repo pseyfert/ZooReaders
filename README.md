@@ -14,12 +14,54 @@ usage
 using options
 =============
 
-look at "hello_options.cc"
+look at ```hello_options.cc```
 and run:
-* ./hello_options
-* ./hello_options -h
-* ./hello_options -v 34
-* ./hello_options here some words
-* ./hello_options -s 0xdeadface
-* ./hello_options -w 1 -t bla some words
+* ```./hello_options```
+* ```./hello_options -h```
+* ```./hello_options -v 34```
+* ```./hello_options here some words```
+* ```./hello_options -s 0xdeadface```
+* ```./hello_options -w 1 -t bla some words```
+
+through the examples
+====================
+
+When reading through the examples _please_ don't start just somewhere. Go
+through them in the following order.
+
+1. [hello_options.cc] the most readable intro into options I could think of.
+2. [hello_logstreams.cc] just putting some noise to the logstreams. play around
+   with the -v option.
+3. [hello_logstreams_glob.cc] not to introduce code duplication, most of
+   ```hello_logstreams.cc``` is exported to the helpers library. This shows how
+   you're supposed to use options.
+4. [ZooReader_basics.cc] a minimal executalbe close to the old ZooReader
+   example.  NB: It shows a check if the branch exists and tells the user all
+   available branch names.
+5. [ZooReader_options.cc] adding options as in hello_options.cc to the
+   ZooReader.
+6. [ZooReader_glob_options.cc] putting things together from
+   hello_logstreams_glob.cc and ZooReader_options.cc
+
+the ZooGui
+==========
+
+This is just a toy project. Two ways of using it:
+
+Firstly, in interactive root:
+```
+root -l
+gSystem->Load("Zoo/libZooROOT.so")
+gSystem->Load("ZooFunctors/libZooFunctorROOT.so")
+.L ZooGui.cpp+O
+ZooGui gui
+gui.LoadFile("/path/to/your/ntuple.root")
+```
+
+Secondly executed:
+```
+make ZooGui
+./ZooGui </path/to/your/ntuple.root>
+```
+
 

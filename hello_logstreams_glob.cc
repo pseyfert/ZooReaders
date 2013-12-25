@@ -6,7 +6,10 @@
 
 
 int main(int argc, char** argv) {
-  glob_options.parse(argc,argv);
+  std::string text;
+  glob_options.push_back<std::string>(new option<std::string>('m',"",&text,true));
+
+  glob_options.parse(argc,argv); /// parsing will throw exception if needed options are not given!
 
 
   logstreams::debug << "this is debug output" << std::endl;
@@ -15,6 +18,8 @@ int main(int argc, char** argv) {
   logstreams::error << "this is error output" << std::endl;
   logstreams::fatal << "this is fatal output" << std::endl;
   logstreams::always << "this is always output" << std::endl;
+
+  logstreams::always << "You entered at -w: " << text << std::endl;
 
   return 0;
 }
