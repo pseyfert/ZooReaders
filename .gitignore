@@ -15,3 +15,7 @@
 
 # ROOT dictionaries
 *Dict.*
+
+# dependency files
+*.d
+*.dd
