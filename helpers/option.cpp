@@ -191,6 +191,12 @@ option<T>* options::push_back(option<T>* opt) {
   return opt;
 }
 
+/// parse calls with char* from argv
+template <>
+void option<char>::set(char* val) {
+  set(*val);
+}
+
 template <>
 void option<bool>::set(char* boolAsString) {
   if (0==strcmp(boolAsString,"true"))
@@ -331,9 +337,11 @@ template class option<bool>;
 template class option<int>;
 template class option<unsigned>;
 template class option<std::string>;
+template class option<char>;
 template class option<TString>;
 template option<bool>* options::push_back<bool>(option<bool>*);
 template option<int>* options::push_back<int>(option<int>*);
+template option<char>* options::push_back<char>(option<char>*);
 template option<unsigned>* options::push_back<unsigned>(option<unsigned>*);
 template option<TString>* options::push_back<TString>(option<TString>*);
 template option<std::string>* options::push_back<std::string>(option<std::string>*);

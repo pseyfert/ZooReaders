@@ -53,6 +53,14 @@ class virtualoption {
 
 template <class T>
 class option : public virtualoption {
+
+  /**
+   * @brief a void function to be executed in initialize
+   *
+   * @param whatever will be returned by value()
+   *
+   * @return no return
+   */
   typedef void (*myfun)(T);
   private:
     char m_caller;
