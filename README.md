@@ -35,7 +35,7 @@ through them in the following order.
 3. [hello_logstreams_glob.cc] not to introduce code duplication, most of
    ```hello_logstreams.cc``` is exported to the helpers library. This shows how
    you're supposed to use options.
-4. [ZooReader_basics.cc] a minimal executalbe close to the old ZooReader
+4. [ZooReader_basic.cc] a minimal executalbe close to the old ZooReader
    example.  NB: It shows a check if the branch exists and tells the user all
    available branch names.
 5. [ZooReader_options.cc] adding options as in hello_options.cc to the

@@ -625,6 +625,7 @@ EXCLUDE_SYMLINKS       = NO
 
 EXCLUDE_PATTERNS       = *Dict.cxx \
                          *Dict.h \
+                         *Dict.cpp \
                          *Rflx.cxx \
                          *Rflx.h \
 			 *LinkDef.h
