@@ -3053,7 +3053,7 @@ float float_mother_mother_mother_mother_mcpid(const ZooP* p) {
 }
 
 int key(const ZooMCP* mcp) {
-  long long buffer = reinterpret_cast<int>(mcp);
+  long long buffer = reinterpret_cast<long long>(mcp);
   return buffer;
 }
 
@@ -3938,7 +3938,7 @@ zooLorentzVector smearedmomentum(const ZooP* p, const ZooEv* ev) {
     for (size_t j = 0 ; j < 3 ; ++j)
       gsl_matrix_set(Litself,i,j,(i>=j)?(gsl_matrix_get(mymatrix,i,j)):0.);
 
-  unsigned int pnum = p;
+  unsigned int pnum = reinterpret_cast<long long>(p);
   TRandom* rnd = new TRandom3(ev->eventNumber() + pnum);
   gsl_vector* stdvec = gsl_vector_alloc(3);
   gsl_vector* modvec = gsl_vector_alloc(3);
