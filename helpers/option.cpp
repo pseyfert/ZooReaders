@@ -1,4 +1,5 @@
 #include <iostream>
+    //BOOST_FOREACH(std::string arg, overflow) {
 #include <limits>
 #include "logstream.h"
 #include "option.h"
@@ -197,7 +198,7 @@ option<T>* options::push_back(option<T>* opt) {
   return opt;
 }
 
-/// parse calls with char* from argv
+/// needed because parse calls with char* from argv
 template <>
 void option<char>::set(char* val) {
   set(*val);
@@ -332,13 +333,12 @@ virtualoption* options::get_option(const char caller) {
   return NULL;
 }
 
-options::options() {
+options::options() : m_needoverflow(false), m_printhelp(false) {
   overflow.clear();
-  m_needoverflow=false;
   helpmessage = std::string("will be ignored");
   push_back<bool>(new option<bool>('h',false,&m_printhelp,false))->enter_helpmessage(std::string("print this help message"));
 }
-options::options(bool needs_overflow) {
+options::options(bool needs_overflow) : m_needoverflow(needs_overflow), m_printhelp(false) {
   overflow.clear();
   m_needoverflow = needs_overflow;
   if(needs_overflow) 
