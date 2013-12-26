@@ -30,20 +30,18 @@
 #include <iostream>
 
 template <class T>
-int dummy(T) {
-  return 0;
-}
+int dummy(T) ;
 
 class virtualoption {
   public:
     virtual int initialize() =0;
     virtual void shortinitialize() =0;
-    virtual ~virtualoption() {};
+    virtual ~virtualoption() ;
     virtual char callme() =0;
     virtual bool isbool() =0;
     virtual bool isneeded() =0;
     virtual bool isset() =0;
-    virtualoption() {};
+    virtualoption() ;
     virtual void set(char*) =0;
     virtual void set() =0;
     virtual void help() =0;
@@ -73,25 +71,20 @@ class option : public virtualoption {
     std::string helpmessage;
     myfun function;
   public:
-    void help() {std::cout << "option -" << callme() << "\t" << helpmessage << std::endl;
-      std::cout << "\t\tdefault: " << default_value << std::endl;
-      if (m_needed) {
-        std::cout << "\t\t must be set" << std::endl;
-      }
-    }
-    T value() {if (m_set) return *m_value; else return default_value;} ;
+    void help() ;
+    T value()  ;
     int initialize();
     void shortinitialize();
     void set();
     void set(T);
     void set(char* value);// {set((T)value);}
-    char callme() {return m_caller;};
+    char callme() ;
     bool isbool();
-    bool isset() {return m_set;};
-    bool isneeded() {return m_needed;};
-    void enter_helpmessage(std::string message) {helpmessage = message;};
+    bool isset() ;
+    bool isneeded() ;
+    void enter_helpmessage(std::string message) ;
     /// call voidfun
-    int apply() {return function(value());}
+    int apply() ;
     option(char caller);
     option(char caller, T def);
     option(char caller, T def, T* value);
@@ -116,14 +109,14 @@ class options {
     option<T>* push_back(option<T>*);
     void help();
     void show_settings();
-    void enter_helpmessage(std::string message) {helpmessage = message;};
+    void enter_helpmessage(std::string message) ;
     int initialize() ;
     int parse(int argc, char** argv);
-    void set_needsOverflow(bool n) {m_needoverflow = n;};
-    bool overflow_needed() {return m_needoverflow;};
+    void set_needsOverflow(bool n) ;
+    bool overflow_needed() ;
     options() ;
     options(bool needs_overflow) ;
-    std::vector<std::string> rest() {return overflow;}
+    std::vector<std::string> rest() ;
     virtualoption* get_option(const char caller);
 };
 #endif

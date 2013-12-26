@@ -161,9 +161,7 @@ void options::help() {
 
 void options::show_settings() {
   logstreams::debug << "possible options are: " << std::endl;
-  //BOOST_FOREACH(virtualoption* opt, vec) {
-  for (unsigned jj = 0 ; jj < vec.size() ; ++jj) {
-    virtualoption* opt = vec[jj];
+  for (virtualoption* opt: vec) {
     opt->shortinitialize();
   }
   if (overflow.size()) {
@@ -172,9 +170,7 @@ void options::show_settings() {
     } else {
       logstreams::debug << "other arguments:" << std::endl;
     }
-    //BOOST_FOREACH(std::string arg, overflow) {
-    for (unsigned jj = 0 ; jj < overflow.size() ; ++jj) {
-      std::string arg = overflow[jj];
+    for (std::string arg : overflow) {
       std::cout << arg << std::endl;
     }
   }
@@ -191,9 +187,7 @@ int options::initialize() {
 
 template<class T>
 option<T>* options::push_back(option<T>* opt) {
-  //BOOST_FOREACH(virtualoption* presentoption, vec) {
-  for (unsigned jj = 0 ; jj < vec.size() ; ++jj) {
-    virtualoption* presentoption = vec[jj];
+  for (virtualoption* presentoption: vec) {
     if (opt->callme() == presentoption->callme()) {
       std::cerr << "YOU MAY NOT USE AN OPTION TWICE!!!" << std::endl;
       return NULL;
@@ -262,6 +256,72 @@ void option<T>::set() {
   std::cerr << "no argument given for option -" << m_caller << std::endl;
 }
 
+template <class T>
+int option<T>::apply() {
+  return function(value());
+}
+
+template <class T>
+bool option<T>::isneeded() {
+  return m_needed;
+}
+
+template <class T>
+bool option<T>::isset() {
+  return m_set;
+}
+
+template <class T>
+char option<T>::callme() {
+  return m_caller;
+}
+
+template <class T>
+T option<T>::value() {
+  if (m_set)
+    return *m_value;
+  return default_value;
+}
+
+template <class T>
+void option<T>::help() {std::cout << "option -" << callme() << "\t" << helpmessage << std::endl;
+  std::cout << "\t\tdefault: " << default_value << std::endl;
+  if (m_needed) {
+    std::cout << "\t\t must be set" << std::endl;
+  }
+}
+
+template <class T>
+void option<T>::enter_helpmessage(std::string message) {
+  helpmessage = message;
+}
+
+void options::enter_helpmessage(std::string message) {
+  helpmessage = message;
+}
+
+void options::set_needsOverflow(bool n) {
+  m_needoverflow = n;
+}
+
+bool options::overflow_needed() {
+  return m_needoverflow;
+}
+
+std::vector<std::string> options::rest() {
+  return overflow;
+}
+
+virtualoption::~virtualoption() {
+}
+
+virtualoption::virtualoption() {
+}
+
+template <class T>
+int dummy(T) {
+  return 0;
+}
 
 virtualoption* options::get_option(const char caller) {
   for (auto opt : vec) {
@@ -292,9 +352,7 @@ int options::parse(int argc, char** argv) {
   for (unsigned i = 1; i < argc ; ++i) {
     bool found = false;
     if ('-'==argv[i][0]) {
-      //BOOST_FOREACH(virtualoption* opt, vec) {
-      for (unsigned jj = 0 ; jj < vec.size() ; ++jj) {
-        virtualoption* opt = vec[jj];
+      for (virtualoption* opt: vec) {
         if(opt->callme() == argv[i][1]) {
           if (opt->isbool()) {
             opt->set();
@@ -334,9 +392,7 @@ int options::parse(int argc, char** argv) {
     help();
     return 30;
   }
-    //BOOST_FOREACH(virtualoption* opt, vec) {
-    for (unsigned jj = 0 ; jj < vec.size() ; ++jj) {
-      virtualoption* opt = vec[jj];
+    for (virtualoption* opt: vec) {
       if (opt->isneeded() && !opt->isset()) {
       std::cerr << "option -" << opt->callme() << " not defined" << std::endl;
       opt->help();
