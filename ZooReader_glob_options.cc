@@ -15,7 +15,16 @@ int main(int argc, char** argv) {
   glob_options.push_back<std::string>(new option<std::string>('b',"b",&branchname))->enter_helpmessage("your decay name");
   glob_options.set_needsOverflow(true);
 
-  glob_options.parse(argc,argv);
+  {
+    int parsererror = glob_options.parse(argc,argv);
+    if (parsererror>1) {
+      glob_options.help();
+      glob_options.show_settings();
+    }
+    if (parsererror) {
+      return parsererror;
+    }
+  }
 
 
   TChain* chain(new TChain("Forest"));
