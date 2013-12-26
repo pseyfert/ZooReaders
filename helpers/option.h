@@ -73,6 +73,7 @@ class option : public virtualoption {
     myfun function;
   public:
     void help() {std::cout << "option -" << callme() << "\t" << helpmessage << std::endl;
+      std::cout << "\t\tdefault: " << default_value << std::endl;
       if (m_needed) {
         std::cout << "\t\t must be set" << std::endl;
       }
