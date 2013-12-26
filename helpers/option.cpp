@@ -163,7 +163,11 @@ void options::show_settings() {
     opt->shortinitialize();
   }
   if (overflow.size()) {
-    logstreams::debug << "other arguments:" << std::endl;
+    if (m_needoverflow) {
+      logstreams::debug << "other arguments are needed! given:" << std::endl;
+    } else {
+      logstreams::debug << "other arguments:" << std::endl;
+    }
     //BOOST_FOREACH(std::string arg, overflow) {
     for (unsigned jj = 0 ; jj < overflow.size() ; ++jj) {
       std::string arg = overflow[jj];
