@@ -152,7 +152,12 @@ void options::help() {
   for (unsigned jj = 0 ; jj < vec.size() ; ++jj) {
     vec[jj]->help();
   }
-  std::cout << "all other arguments " << helpmessage << std::endl;
+  if (m_needoverflow) {
+    std::cout << "other arguments are needed." << std::endl;
+    std::cout << "these arguments " << helpmessage << std::endl;
+  } else {
+    std::cout << "all other arguments " << helpmessage << std::endl;
+  }
 }
 
 void options::show_settings() {
@@ -284,7 +289,7 @@ options::options(bool needs_overflow) {
   push_back<bool>(new option<bool>('h',false,&m_printhelp,false))->enter_helpmessage(std::string("print this help message"));
 }
 
-void options::parse(int argc, char** argv) {
+int options::parse(int argc, char** argv) {
   for (unsigned i = 1; i < argc ; ++i) {
     bool found = false;
     if ('-'==argv[i][0]) {
@@ -325,7 +330,7 @@ void options::parse(int argc, char** argv) {
   if (m_needoverflow && overflow.empty()) {
     std::cerr << "not enough arguments" << std::endl;
     help();
-    throw 30;
+    return 30;
   }
     //BOOST_FOREACH(virtualoption* opt, vec) {
     for (unsigned jj = 0 ; jj < vec.size() ; ++jj) {
@@ -333,7 +338,7 @@ void options::parse(int argc, char** argv) {
       if (opt->isneeded() && !opt->isset()) {
       std::cerr << "option -" << opt->callme() << " not defined" << std::endl;
       opt->help();
-      throw 31;
+      return 31;
     }
   }
   initialize();

@@ -72,7 +72,11 @@ class option : public virtualoption {
     std::string helpmessage;
     myfun function;
   public:
-    void help() {std::cout << "option -" << callme() << "\t" << helpmessage << std::endl;}
+    void help() {std::cout << "option -" << callme() << "\t" << helpmessage << std::endl;
+      if (m_needed) {
+        std::cout << "\t\t must be set" << std::endl;
+      }
+    }
     T value() {if (m_set) return *m_value; else return default_value;} ;
     void initialize();
     void shortinitialize();
@@ -112,7 +116,7 @@ class options {
     void show_settings();
     void enter_helpmessage(std::string message) {helpmessage = message;};
     void initialize() ;
-    void parse(int argc, char** argv);
+    int parse(int argc, char** argv);
     void set_needsOverflow(bool n) {m_needoverflow = n;};
     bool overflow_needed() {return m_needoverflow;};
     options() ;
