@@ -10,6 +10,17 @@ usage
 * symbolic link to your Phys/ZooWriter/Zoo directory in the ZooReaders main
   directory is required.
 * before running executables "source init.sh" is required
+* for developers: set a pre-commit hook which runs doxygen and have a look at http://rickfoosusa.blogspot.de/2011/10/howto-use-doxygen-with-github.html
+
+todo
+====
+
+* Follow this example: http://rickfoosusa.blogspot.de/2011/10/howto-use-doxygen-with-github.html
+and generate doxygen docu on the fly and ship it!
+* logstreams don't use deprecated (as in C++11) auto pointers.
+* finish Loopers implementation
+* proper makefile for helpers
+* example using Loopers
 
 using options
 =============
@@ -65,4 +76,6 @@ make ZooGui
 ./ZooGui </path/to/your/ntuple.root>
 ```
 
-
+Thirdly, due to limitations of CINT you cannot actually develope your plot on
+runtime. This could be much more awesome with the PyROOT methods shipped with
+Phys/ZooWriter/examples. I'm curious if this gets fantastic with cling/clang.
