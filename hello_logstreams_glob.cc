@@ -9,9 +9,9 @@
 
 int main(int argc, char** argv) {
   std::string text;
-  glob_options.push_back<std::string>(new option<std::string>('m',"",&text,true));
+  glob_options->push_back<std::string>(new option<std::string>('m',"",&text,true));
 
-  glob_options.parse(argc,argv); /// parsing will throw exception if needed options are not given!
+  glob_options->parse(argc,argv); /// parsing will throw exception if needed options are not given!
 
 
   logstreams::debug << "this is debug output" << std::endl;

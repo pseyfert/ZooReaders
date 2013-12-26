@@ -7,10 +7,10 @@ int glob_reset_log(int myloglevel) {
 }
 
 
-options& init_glob_options() {
-  static options opts;
-  opts.push_back<int>(new option<int>('v',3,&glob_reset_log));
+options* init_glob_options() {
+  options* opts = new options();
+  opts->push_back<int>(new option<int>('v',3,&glob_reset_log));
   return opts;
 }
 
-options glob_options = init_glob_options();
+options* glob_options = init_glob_options();
