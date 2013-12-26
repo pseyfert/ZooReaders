@@ -264,11 +264,9 @@ void option<T>::set() {
 
 
 virtualoption* options::get_option(const char caller) {
-  /// @todo: this will be so cool with C++11
-  std::vector<virtualoption*>::const_iterator iter = vec.begin();
-  for ( ; vec.end() != iter ; ++iter ) {
-    if (caller == (*iter)->callme()) {
-      return *iter;
+  for (auto opt : vec) {
+    if (caller == opt->callme()) {
+      return opt;
     }
   }
   return NULL;
