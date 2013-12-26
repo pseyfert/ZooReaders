@@ -1,6 +1,6 @@
 LD = gcc
 CXXFLAGS = $(shell root-config --cflags) -fPIC
-LDFLAGS = $(shell root-config --glibs) -lGenVector -Lhelpers -lhelpers -LZoo -lZooROOT -LZooFunctors -lZooFunctorROOT
+LDFLAGS = $(shell root-config --glibs) -lGenVector -Lhelpers -lhelpers -LZoo -lZooROOT -LZooFunctors -lZooFunctorROOT -L/usr/lib -lgsl -lgslcblas -lm
 SUBDIRS = Zoo ZooFunctors helpers
 ###TARGET: todo
 
