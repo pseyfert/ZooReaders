@@ -1,8 +1,9 @@
 #include "glob.h"
 #include "logstream.h"
 
-void glob_reset_log(int myloglevel) {
+int glob_reset_log(int myloglevel) {
   logstreams::logstream::setLogLevel(myloglevel);
+  return 0;
 }
 
 
