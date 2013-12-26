@@ -4,6 +4,8 @@
 #include <string>
 #include <iostream>
 
+///@todo in this example -h doesn't work!
+
 
 int main(int argc, char** argv) {
   std::string text;
