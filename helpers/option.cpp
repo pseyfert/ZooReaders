@@ -342,6 +342,7 @@ int options::parse(int argc, char** argv) {
     }
   }
   initialize();
+  return 0;
 }
 
 template class option<bool>;
