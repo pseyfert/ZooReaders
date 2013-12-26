@@ -30,12 +30,13 @@
 #include <iostream>
 
 template <class T>
-void dummy(T) {
+int dummy(T) {
+  return 0;
 }
 
 class virtualoption {
   public:
-    virtual void initialize() =0;
+    virtual int initialize() =0;
     virtual void shortinitialize() =0;
     virtual ~virtualoption() {};
     virtual char callme() =0;
@@ -46,7 +47,7 @@ class virtualoption {
     virtual void set(char*) =0;
     virtual void set() =0;
     virtual void help() =0;
-    virtual void apply() =0;
+    virtual int apply() =0;
     virtual void enter_helpmessage(std::string) =0;
 };
 
@@ -61,7 +62,7 @@ class option : public virtualoption {
    *
    * @return no return
    */
-  typedef void (*myfun)(T);
+  typedef int (*myfun)(T);
   private:
     char m_caller;
     T* m_value;
@@ -79,7 +80,7 @@ class option : public virtualoption {
       }
     }
     T value() {if (m_set) return *m_value; else return default_value;} ;
-    void initialize();
+    int initialize();
     void shortinitialize();
     void set();
     void set(T);
@@ -90,7 +91,7 @@ class option : public virtualoption {
     bool isneeded() {return m_needed;};
     void enter_helpmessage(std::string message) {helpmessage = message;};
     /// call voidfun
-    void apply() {function(value());}
+    int apply() {return function(value());}
     option(char caller);
     option(char caller, T def);
     option(char caller, T def, T* value);
@@ -116,7 +117,7 @@ class options {
     void help();
     void show_settings();
     void enter_helpmessage(std::string message) {helpmessage = message;};
-    void initialize() ;
+    int initialize() ;
     int parse(int argc, char** argv);
     void set_needsOverflow(bool n) {m_needoverflow = n;};
     bool overflow_needed() {return m_needoverflow;};

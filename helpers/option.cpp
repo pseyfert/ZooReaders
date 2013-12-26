@@ -13,11 +13,10 @@ option<T>::option(char caller) {
 }
 
 template <class T>
-void option<T>::initialize() {
+int option<T>::initialize() {
   logstreams::debug << "option: ";
   shortinitialize();
-  apply();
-  return;
+  return apply();
 }
 
 template <class T>
@@ -180,12 +179,14 @@ void options::show_settings() {
     }
   }
 }
-void options::initialize() {
+int options::initialize() {
+  int retval = 0;
   show_settings();
   for (unsigned jj = 0 ; jj < vec.size() ; ++jj) {
     virtualoption* opt = vec[jj];
-    opt->apply();
+    retval |= opt->apply();
   }
+  return retval;
 }
 
 template<class T>
@@ -317,6 +318,7 @@ int options::parse(int argc, char** argv) {
         }
       }
       if (found) continue;
+      ///@todo recycle unrecognized options?
       std::cerr << "unrecognized option: -" << argv[i][1] << std::endl;
       continue;
     }
@@ -341,8 +343,8 @@ int options::parse(int argc, char** argv) {
       return 31;
     }
   }
-  initialize();
-  return 0;
+    /// @todo verbosity change should affect behaviour of initialize. done correctly?
+  return initialize();
 }
 
 template class option<bool>;
