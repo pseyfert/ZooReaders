@@ -324,8 +324,10 @@ int options::parse(int argc, char** argv) {
     }
     overflow.push_back(std::string(argv[i]));
   }
-  if(m_printhelp)
+  if(m_printhelp) {
     help();
+    return 1;   // want to abort in case help is required
+  }
   //  if(UNLIKELY(logstreams::logstream::logLevel() <= logstreams::DEBUG))
   //   initialize();
 
