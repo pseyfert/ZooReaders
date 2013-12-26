@@ -23,6 +23,8 @@ void option<T>::initialize() {
 template <class T>
 void option<T>::shortinitialize() {
   logstreams::debug << "\t-" << m_caller;
+  if (m_needed)
+    logstreams::debug << "*";
   logstreams::debug << "\t" << value();
   if (m_set)
     logstreams::debug << " [" << default_value << "]";
