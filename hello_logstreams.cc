@@ -6,13 +6,15 @@
 //int myloglevel = logstreams::logstream::logLevel();
 
 template <class T>
-void noise(T) {
+int noise(T) {
   logstreams::debug << "MAKE SOME NOISE" << std::endl;
+  return 0;
 }
 
-void reset_log(int myloglevel) {
+int reset_log(int myloglevel) {
   std::cout << "my log level " << myloglevel << std::endl;
   logstreams::logstream::setLogLevel(myloglevel);
+  return 0;
 }
 
 int main(int argc, char** argv) {
