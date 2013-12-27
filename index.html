@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+
+    <title>ZooReaders by pseyfert</title>
+  </head>
+
+  <body>
+
+    <header>
+      <div class="container">
+        <h1>ZooReaders</h1>
+        <h2></h2>
+
+        <section id="downloads">
+          <a href="https://github.com/pseyfert/ZooReaders/zipball/master" class="btn">Download as .zip</a>
+          <a href="https://github.com/pseyfert/ZooReaders/tarball/master" class="btn">Download as .tar.gz</a>
+          <a href="https://github.com/pseyfert/ZooReaders" class="btn btn-github"><span class="icon"></span>View on GitHub</a>
+        </section>
+      </div>
+    </header>
+
+    <div class="container">
+      <section id="main_content">
+        <h1>
+<a name="zooreaders" class="anchor" href="#zooreaders"><span class="octicon octicon-link"></span></a>ZooReaders</h1>
+
+<p>Some code for reading ZooNtuples adding convenience, trying to avoid code
+duplication. Providing commonly needed code. etc.</p>
+
+<h1>
+<a name="usage" class="anchor" href="#usage"><span class="octicon octicon-link"></span></a>usage</h1>
+
+<ul>
+<li>symbolic link to your Phys/ZooWriter/Zoo directory in the ZooReaders main
+directory is required.</li>
+<li>before running executables "source init.sh" is required</li>
+</ul><h1>
+<a name="using-options" class="anchor" href="#using-options"><span class="octicon octicon-link"></span></a>using options</h1>
+
+<p>look at <code>hello_options.cc</code>
+and run:</p>
+
+<ul>
+<li><code>./hello_options</code></li>
+<li><code>./hello_options -h</code></li>
+<li><code>./hello_options -v 34</code></li>
+<li><code>./hello_options here some words</code></li>
+<li><code>./hello_options -s 0xdeadface</code></li>
+<li><code>./hello_options -w 1 -t bla some words</code></li>
+</ul><h1>
+<a name="through-the-examples" class="anchor" href="#through-the-examples"><span class="octicon octicon-link"></span></a>through the examples</h1>
+
+<p>When reading through the examples <em>please</em> don't start just somewhere. Go
+through them in the following order.</p>
+
+<ol>
+<li>[hello_options.cc] the most readable intro into options I could think of.</li>
+<li>[hello_logstreams.cc] just putting some noise to the logstreams. play around
+with the -v option. Shows how functions can be called when an option gets
+parsed, both using the value as well as not using it (mind the template of option::myfun).</li>
+<li>[hello_logstreams_glob.cc] not to introduce code duplication, most of
+<code>hello_logstreams.cc</code> is exported to the helpers library. This shows how
+you're supposed to use options.</li>
+<li>[ZooReader_basic.cc] a minimal executalbe close to the old ZooReader
+example.  NB: It shows a check if the branch exists and tells the user all
+available branch names.</li>
+<li>[ZooReader_options.cc] adding options as in hello_options.cc to the
+ZooReader.</li>
+<li>[ZooReader_glob_options.cc] putting things together from
+hello_logstreams_glob.cc and ZooReader_options.cc</li>
+</ol><h1>
+<a name="the-zoogui" class="anchor" href="#the-zoogui"><span class="octicon octicon-link"></span></a>the ZooGui</h1>
+
+<p>This is just a toy project. Two ways of using it:</p>
+
+<p>Firstly, in interactive root:</p>
+
+<pre><code>root -l
+gSystem-&gt;Load("Zoo/libZooROOT.so")
+gSystem-&gt;Load("ZooFunctors/libZooFunctorROOT.so")
+.L ZooGui.cpp+O
+ZooGui gui
+gui.LoadFile("/path/to/your/ntuple.root")
+</code></pre>
+
+<p>Secondly executed:</p>
+
+<pre><code>make ZooGui
+./ZooGui &lt;/path/to/your/ntuple.root&gt;
+</code></pre>
+      </section>
+    </div>
+
+    
+  </body>
+</html>
