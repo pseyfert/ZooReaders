@@ -41,6 +41,18 @@ duplication. Providing commonly needed code. etc.</p>
 <li>symbolic link to your Phys/ZooWriter/Zoo directory in the ZooReaders main
 directory is required.</li>
 <li>before running executables "source init.sh" is required</li>
+<li>for developers: set a pre-commit hook which runs doxygen and have a look at <a href="http://rickfoosusa.blogspot.de/2011/10/howto-use-doxygen-with-github.html">http://rickfoosusa.blogspot.de/2011/10/howto-use-doxygen-with-github.html</a>
+</li>
+</ul><h1>
+<a name="todo" class="anchor" href="#todo"><span class="octicon octicon-link"></span></a>todo</h1>
+
+<ul>
+<li>Follow this example: <a href="http://rickfoosusa.blogspot.de/2011/10/howto-use-doxygen-with-github.html">http://rickfoosusa.blogspot.de/2011/10/howto-use-doxygen-with-github.html</a>
+and generate doxygen docu on the fly and ship it!</li>
+<li>logstreams don't use deprecated (as in C++11) auto pointers.</li>
+<li>finish Loopers implementation</li>
+<li>proper makefile for helpers</li>
+<li>example using Loopers</li>
 </ul><h1>
 <a name="using-options" class="anchor" href="#using-options"><span class="octicon octicon-link"></span></a>using options</h1>
 
@@ -95,6 +107,10 @@ gui.LoadFile("/path/to/your/ntuple.root")
 <pre><code>make ZooGui
 ./ZooGui &lt;/path/to/your/ntuple.root&gt;
 </code></pre>
+
+<p>Thirdly, due to limitations of CINT you cannot actually develope your plot on
+runtime. This could be much more awesome with the PyROOT methods shipped with
+Phys/ZooWriter/examples. I'm curious if this gets fantastic with cling/clang.</p>
       </section>
     </div>
 
