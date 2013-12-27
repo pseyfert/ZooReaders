@@ -19,3 +19,7 @@
 # dependency files
 *.d
 *.dd
+
+# documentation not in main branch
+html/
+
